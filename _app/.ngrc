@@ -1,9 +1,4 @@
 {
-  "name": "app",
-  "title": "AngularJS app",
-  "author: "Antonio Aguilar",
-  "email": "<antonio@gmail.com>",
-  "company": "Company Ltd",
-  "projectPath": ".",
-  "headerFile" : "NOTICE.txt"
+  "path": ".",
+  "notice" : "notice.txt"
 }

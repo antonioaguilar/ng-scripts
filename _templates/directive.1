@@ -1,8 +1,8 @@
-@@NOTICE
-angular.module('directives.@@COMPONENT_NAME', [])
-  .directive('@@COMPONENT_NAME', @@COMPONENT_NAME);
+${notice}
+angular.module('directives.${name}', [])
+  .directive('${name}', ${name});
 
-function @@COMPONENT_NAME() {
+function ${name}() {
 
   function link(scope, element, attr) {
 
@@ -11,7 +11,7 @@ function @@COMPONENT_NAME() {
   return {
     restrict: 'E',
     scope: {},
-    templateUrl: 'directives/@@COMPONENT_STYLE_NAME/@@COMPONENT_STYLE_NAME.tpl.html',
+    templateUrl: 'directives/${style}/${style}.tpl.html',
     link: link
   };
 

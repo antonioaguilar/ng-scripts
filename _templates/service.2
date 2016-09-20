@@ -1,12 +1,12 @@
-describe('test @@COMPONENT_NAME service', function () {
-  var @@COMPONENT_NAME, $rootScope;
+describe('test ${name} service', function () {
+  var ${name}, $rootScope;
 
   beforeEach(module('app'));
-  beforeEach(module('services.@@COMPONENT_NAME'));
+  beforeEach(module('services.${name}'));
 
-  beforeEach(inject(function (_$rootScope_, _@@COMPONENT_NAME_) {
+  beforeEach(inject(function (_$rootScope_, _${name}_) {
     $rootScope = _$rootScope_;
-    @@COMPONENT_NAME = _@@COMPONENT_NAME_;
+    ${name} = _${name}_;
   }));
 
   it('should pass', function () {

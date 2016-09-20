@@ -1,9 +1,8 @@
-@@NOTICE
-describe('test <@@COMPONENT_STYLE_NAME> directive', function () {
-
+describe('test <${style}> directive', function () {
   var $compile, $rootScope, element, scope, isolatedScope;
 
   beforeEach(module('app'));
+  beforeEach(module('directives.${name}'));
 
   beforeEach(inject(function (_$compile_, _$rootScope_) {
     $compile = _$compile_;
@@ -13,13 +12,8 @@ describe('test <@@COMPONENT_STYLE_NAME> directive', function () {
     isolatedScope = element.isolateScope();
   }));
 
-  // Important: We need to reset the pub/sub after each test
-  afterEach(function () {
-    $rootScope.$event.reset();
-  });
-
   function getCompiledElement() {
-    var element = angular.element('<@@COMPONENT_STYLE_NAME></@@COMPONENT_STYLE_NAME>');
+    var element = angular.element('<${style}></${style}>');
     var compiledElement = $compile(element)(scope);
     scope.$digest();
     return compiledElement;

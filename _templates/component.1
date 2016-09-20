@@ -1,20 +1,16 @@
-@@NOTICE
-angular.module('components.@@COMPONENT_NAME', [])
-  .component('@@COMPONENT_NAME', {
+${notice}
+angular.module('components.${name}', [])
+  .component('${name}', {
     bindings: {},
-    controller: @@COMPONENT_NAME,
-    templateUrl: 'components/@@COMPONENT_STYLE_NAME/@@COMPONENT_STYLE_NAME.tpl.html'
+    controller: ${name},
+    templateUrl: 'components/${style}/${style}.tpl.html'
   });
 
-function @@COMPONENT_NAME() {
+function ${name}() {
 
-  this.$onInit = function() {
+  this.$onInit = function() {};
 
-  };
-
-  this.$onChanges = function(changes) {
-
-  };
+  this.$onChanges = function(changes) {};
 
   this.$postLink = function() {};
 

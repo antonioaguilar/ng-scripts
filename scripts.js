@@ -1,78 +1,42 @@
 var _ = require('lodash');
 var fs = require('fs-extra');
 var gl = require('globule');
-var ap = require('applause');
 var minimist = require('minimist');
 var toKebabCase = require('kebab-case');
 
 var ngrc, notice;
+var file, data, compiled;
 var ext = ['.js', '.spec.js', '.tpl.html', '.scss', '.e2e.js'];
 
 module.exports = {
 
-  /**
-   * Create controller
-   * @param  {object} component contains name and description
-   * of component
-   */
   createController: function( component ) {
-    var file, data;
-    var options = { patterns: [] };
     var templates = gl.find(['_templates/controller.*'], { srcBase: __dirname });
 
-    options.patterns.push({ match: 'COMPONENT_NAME', replacement: component.name });
-    options.patterns.push({ match: 'COMPONENT_DESCRIPTION', replacement: component.description });
-    options.patterns.push({ match: 'NOTICE', replacement: notice });
-
-    var pattern = ap.create(options);
-
     _.forEach(templates, function( template, idx ) {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
-      data = pattern.replace(file);
-      fs.writeFileSync(component.folder + '/' + component.name + ext[idx], data.content, 'utf8');
+      compiled = _.template(file);
+      data = compiled({ notice: notice, name: component.name });
+      fs.writeFileSync('src/controllers' + '/' + component.name + ext[idx], data, 'utf8');
     });
   },
 
-  /**
-   * Create service
-   * @param  {object} component name and description of service
-   */
   createService: function( component ) {
-    var file, data;
-    var options = { patterns: [] };
     var templates = gl.find(['_templates/service.*'], { srcBase: __dirname });
 
-    options.patterns.push({ match: 'COMPONENT_NAME', replacement: component.name });
-    options.patterns.push({ match: 'COMPONENT_DESCRIPTION', replacement: component.description });
-    options.patterns.push({ match: 'NOTICE', replacement: notice });
-
-    var pattern = ap.create(options);
-
     _.forEach(templates, function( template, idx ) {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
-      data = pattern.replace(file);
-      fs.writeFileSync(component.folder + '/' + component.name + ext[idx], data.content, 'utf8');
+      compiled = _.template(file);
+      data = compiled({ notice: notice, name: component.name });
+      fs.writeFileSync('src/services' + '/' + component.name + ext[idx], data, 'utf8');
     });
   },
 
-  /**
-   * Create directive
-   * @param  {object} component name and description
-   */
   createDirective: function( component ) {
-    var file, data;
-    var options = { patterns: [] };
     var templates = gl.find(['_templates/directive.*'], { srcBase: __dirname });
 
-    options.patterns.push({ match: 'COMPONENT_NAME', replacement: component.name });
-    options.patterns.push({ match: 'COMPONENT_STYLE_NAME', replacement: toKebabCase(component.name) });
-    options.patterns.push({ match: 'COMPONENT_DESCRIPTION', replacement: component.description });
-    options.patterns.push({ match: 'NOTICE', replacement: notice });
-
-    var pattern = ap.create(options);
-
     try {
-      fs.mkdirsSync(component.folder + '/' + toKebabCase(component.name));
+      fs.mkdirsSync('src/directives' + '/' + toKebabCase(component.name));
     }
     catch( e ) {
       console.error('ERROR: could not create sub-folder for directive');
@@ -81,25 +45,18 @@ module.exports = {
 
     _.forEach(templates, function( template, idx ) {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
-      data = pattern.replace(file);
-      fs.writeFileSync(component.folder + '/' + toKebabCase(component.name) + '/' + toKebabCase(component.name) + ext[idx], data.content, 'utf8');
+      compiled = _.template(file);
+      data = compiled({ notice: notice, name: component.name, style: toKebabCase(component.name) });
+      fs.writeFileSync('src/directives' + '/' + toKebabCase(component.name) + '/' + toKebabCase(component.name) + ext[idx], data, 'utf8');
     });
+
   },
 
   createComponent: function( component ) {
-    var file, data;
-    var options = { patterns: [] };
     var templates = gl.find(['_templates/component.*'], { srcBase: __dirname });
 
-    options.patterns.push({ match: 'COMPONENT_NAME', replacement: component.name });
-    options.patterns.push({ match: 'COMPONENT_STYLE_NAME', replacement: toKebabCase(component.name) });
-    options.patterns.push({ match: 'COMPONENT_DESCRIPTION', replacement: component.description });
-    options.patterns.push({ match: 'NOTICE', replacement: notice });
-
-    var pattern = ap.create(options);
-
     try {
-      fs.mkdirsSync(component.folder + '/' + toKebabCase(component.name));
+      fs.mkdirsSync('src/components' + '/' + toKebabCase(component.name));
     }
     catch( e ) {
       console.error('ERROR: could not create sub-folder for component');
@@ -108,8 +65,9 @@ module.exports = {
 
     _.forEach(templates, function( template, idx ) {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
-      data = pattern.replace(file);
-      fs.writeFileSync(component.folder + '/' + toKebabCase(component.name) + '/' + toKebabCase(component.name) + ext[idx], data.content, 'utf8');
+      compiled = _.template(file);
+      data = compiled({ notice: notice, name: component.name, style: toKebabCase(component.name) });
+      fs.writeFileSync('src/components' + '/' + toKebabCase(component.name) + '/' + toKebabCase(component.name) + ext[idx], data, 'utf8');
     });
   },
 
@@ -126,49 +84,29 @@ module.exports = {
 
   checkConfiguration: function() {
     try {
-      fs.statSync('.ngrc');
-      ngrc = fs.readJSONSync('.ngrc');
+      fs.statSync('.ngrc').isFile();
     }
-    catch( e ) {
+    catch( err ) {
       console.error('ERROR: .ngrc file not found');
       return false;
     }
 
-    if( ngrc.headerFile ) {
-      try {
-        fs.statSync(ngrc.projectPath + '/' + ngrc.headerFile);
-        notice = fs.readFileSync(ngrc.projectPath + '/' + ngrc.headerFile, 'utf8');
-      }
-      catch( e ) {
-        console.error('ERROR: ' + ngrc.headerFile + ' file not found');
-        return false;
-      }
+    try {
+      fs.statSync('notice.txt').isFile();
     }
-    else {
-      console.error('ERROR: no header file configured in .ngrc');
+    catch( err ) {
+      console.error('ERROR: notice.txt file not found');
       return false;
     }
+
+    ngrc = fs.readJSONSync('.ngrc');
+    notice = fs.readFileSync(ngrc.path + '/' + ngrc.notice, 'utf8');
 
     return true;
   },
 
   checkArguments: function( args ) {
     return true;
-  },
-
-  createFolder: function( name, options ) {
-
-    var baseDir = options.child ? ngrc.projectPath + '/' + options.parent + '/' + name + '/' + options.child : ngrc.projectPath + '/' + options.parent + '/' + name;
-
-    try {
-      fs.mkdirsSync(baseDir);
-    }
-    catch( e ) {
-      console.error('ERROR: could not create folder');
-      return false;
-    }
-
-    return baseDir;
   },
 
   getArguments: function( args ) {
