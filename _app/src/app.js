@@ -24,28 +24,32 @@ var app = angular.module('app', [
   'app.routes'
 ]);
 
-app.config(function ($urlRouterProvider, $logProvider, $envProvider) {
+app.config(function( $urlRouterProvider, $logProvider, $envProvider, $compileProvider ) {
   $urlRouterProvider.otherwise('/app');
-  $logProvider.debugEnabled(true);
 
   $envProvider.config({
     domains: {
       development: ['localhost'],
-      production: ['acme.com']
+      production: ['localhost.com']
     },
     vars: {
-      development: { apiUrl: '//localhost/api' },
-      production: { apiUrl: '//api.acme.com/v2' }
+      development: { apiUrl: 'localhost/api' },
+      production: { apiUrl: 'localhost.com/api' }
     }
   });
 
-  $envProvider.check();
+  if( $envProvider.mode('production') ) {
+    $logProvider.debugEnabled(false);
+    $compileProvider.debugInfoEnabled(false);
+  }
+
 });
 
-app.run(function ($rootScope, $log, $env) {
-  $rootScope.apiUrl = $env.key('apiUrl');
+app.run(function( $rootScope, $log, $env, $location ) {
+  $rootScope.apiUrl = $location.protocol() + '://' + $env.key('apiUrl');
 
-  $rootScope.$event.addWireTap(function (data, event) {
+  $rootScope.$event.addWireTap(function( data, event ) {
     $log.debug(event);
   });
+
 });

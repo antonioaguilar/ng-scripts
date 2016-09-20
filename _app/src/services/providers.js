@@ -15,46 +15,43 @@
 
 var _providers = angular.module('app.providers', []);
 
-_providers.provider('$env', function () {
-  this.environment = 'development';
+_providers.provider('$env', function() {
+  this.env = 'development';
   this.data = {};
 
-  this.config = function (config) {
-    this.data = config;
-  };
-
-  this.set = function (environment) {
-    this.environment = environment;
-  };
-
-  this.get = function () {
-    return this.environment;
-  };
-
-  this.key = function (variable) {
-    if ( variable !== 'all' ) {
-      return this.data.vars[this.get()][variable];
-    }
-
-    return this.data.vars[this.get()];
-  };
-
-  this.is = function (environment) {
-    return (environment === this.environment);
-  };
-
-  this.check = function () {
+  this.check = function() {
     var location = window.location.href, self = this;
-    angular.forEach(this.data.domains, function (v, k) {
-      angular.forEach(v, function (v) {
-        if ( location.match(new RegExp('^http(s)?:\/\/' + v)) ) {
-          self.environment = k;
+    angular.forEach(this.data.domains, function( v, k ) {
+      angular.forEach(v, function( v ) {
+        if( location.match(new RegExp('^http(s)?:\/\/' + v)) ) {
+          self.env = k;
         }
       });
     });
   };
 
-  this.$get = function () {
+  this.config = function( config ) {
+    this.data = config;
+    this.check();
+  };
+
+  this.set = function( env ) {
+    this.env = env;
+  };
+
+  this.get = function() {
+    return this.env;
+  };
+
+  this.key = function( key ) {
+    return this.data.vars[this.get()][key];
+  };
+
+  this.mode = function( env ) {
+    return (env === this.env);
+  };
+
+  this.$get = function() {
     return this;
   };
 });

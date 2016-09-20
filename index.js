@@ -5,7 +5,7 @@ var cli = require('./scripts');
 var args = process.argv;
 var flag = cli.getArguments(args);
 
-ng.version('1.0.0');
+ng.version('1.0.2');
 ng.option('-a, --app', 'create new app');
 ng.option('-s, --service', 'create factory service');
 ng.option('-c, --controller', 'create controller');
