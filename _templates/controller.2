@@ -1,0 +1,18 @@
+describe('test @@COMPONENT_NAME controller', function () {
+  var @@COMPONENT_NAME, $scope;
+
+  beforeEach(module('app'));
+  beforeEach(module('controllers.@@COMPONENT_NAME'));
+
+  beforeEach(inject(function ($controller, $rootScope) {
+    $scope = $rootScope.$new();
+    @@COMPONENT_NAME = $controller('@@COMPONENT_NAME', {
+      $scope: $scope
+    });
+  }));
+
+  it('should pass', function () {
+    expect(true).toBe(true);
+  });
+
+});

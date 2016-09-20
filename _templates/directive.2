@@ -1,0 +1,32 @@
+@@NOTICE
+describe('test <@@COMPONENT_STYLE_NAME> directive', function () {
+
+  var $compile, $rootScope, element, scope, isolatedScope;
+
+  beforeEach(module('app'));
+
+  beforeEach(inject(function (_$compile_, _$rootScope_) {
+    $compile = _$compile_;
+    $rootScope = _$rootScope_;
+    scope = $rootScope.$new();
+    element = getCompiledElement();
+    isolatedScope = element.isolateScope();
+  }));
+
+  // Important: We need to reset the pub/sub after each test
+  afterEach(function () {
+    $rootScope.$event.reset();
+  });
+
+  function getCompiledElement() {
+    var element = angular.element('<@@COMPONENT_STYLE_NAME></@@COMPONENT_STYLE_NAME>');
+    var compiledElement = $compile(element)(scope);
+    scope.$digest();
+    return compiledElement;
+  }
+
+  it('should pass', function () {
+    expect(true).toBe(true);
+  });
+
+});

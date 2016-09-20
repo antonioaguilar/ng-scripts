@@ -1,0 +1,13 @@
+# No .editorconfig files above the root directory
+root = true
+
+[*]
+indent_style = space
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Use 2 spaces for indentation in HTML, JavaScript, Ruby, SCSS, and XML
+[*.{html,js,css,scss,xml,md,json}]
+indent_size = 2

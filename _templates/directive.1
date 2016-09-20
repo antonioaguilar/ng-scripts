@@ -1,0 +1,18 @@
+@@NOTICE
+angular.module('directives.@@COMPONENT_NAME', [])
+  .directive('@@COMPONENT_NAME', @@COMPONENT_NAME);
+
+function @@COMPONENT_NAME() {
+
+  function link(scope, element, attr) {
+
+  }
+
+  return {
+    restrict: 'E',
+    scope: {},
+    templateUrl: 'directives/@@COMPONENT_STYLE_NAME/@@COMPONENT_STYLE_NAME.tpl.html',
+    link: link
+  };
+
+}
