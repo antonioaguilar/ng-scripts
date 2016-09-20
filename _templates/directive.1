@@ -1,6 +1,5 @@
 ${notice}
-angular.module('directives.${name}', [])
-  .directive('${name}', ${name});
+angular.module('directives.${name}', []).directive('${name}', ${name});
 
 function ${name}() {
 
@@ -9,8 +8,6 @@ function ${name}() {
   }
 
   return {
-    restrict: 'E',
-    scope: {},
     templateUrl: 'directives/${style}/${style}.tpl.html',
     link: link
   };

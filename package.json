@@ -2,7 +2,7 @@
   "name": "ng-scripts",
   "version": "1.0.0",
   "author": "Antonio Aguilar",
-  "description": "Scripts to scaffold AngularJS projects",
+  "description": "Automatically generate AngularJS components",
   "license": "MIT",
   "main": "index.js",
   "private": true,
@@ -15,11 +15,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/antonioaguilar/ng-scripts.git"
+    "url": "git+ssh://git@github.com/antonioaguilar/ng-scripts.git"
   },
-  "homepage": "https://bitbucket.org/antonioaguilar/ng-scripts#readme",
+  "homepage": "https://github.com/antonioaguilar/ng-scripts",
   "dependencies": {
-    "applause": "^1.2.2",
     "commander": "^2.9.0",
     "fs-extra": "^0.30.0",
     "globule": "^1.0.0",

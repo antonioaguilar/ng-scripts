@@ -1,8 +1,21 @@
-/* eslint-disable */
-module.exports = function( grunt ) {
+/*
+ * Copyright (c) 2016 Antonio Aguilar
+ *
+ * This software is provided "as is", without warranty of any kind, express or
+ * implied, including but not limited to the warranties of merchantability,
+ * fitness for a particular purpose and non-infringement. In no event shall the
+ * authors or copyright holders be liable for any claim, damages or other
+ * liability, whether in an action of contract, tort or otherwise, arising from,
+ * out of or in connection with the software or the use or other dealings in this
+ * software.
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ */
 
-  require('jit-grunt')(grunt, {});
-  //require('time-grunt')(grunt);
+module.exports = function (grunt) {
+
+  require('jit-grunt')(grunt);
 
   var buildConfig = {
     build_dir: 'public',
@@ -15,7 +28,7 @@ module.exports = function( grunt ) {
       html: ['src/app.html'],
       sass: ['scss/main.scss']
     },
-    vendor_files: require('./bundle.conf')
+    vendor_files: require('./bundle.js')
   };
 
   var buildTasks = {
@@ -273,37 +286,37 @@ module.exports = function( grunt ) {
   grunt.initConfig(grunt.util._.extend(buildTasks, buildConfig));
 
   grunt.registerTask('default', ['development', 'express', 'watch']);
-  grunt.registerTask('livereload', ['development', 'express', 'watch']);
   grunt.registerTask('development', ['clean:all', 'html2js', 'sass:build', 'concat:build_css', 'copy:build_app_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build']);
+  grunt.registerTask('livereload', ['development', 'express', 'watch']);
   grunt.registerTask('release', ['clean:all', 'html2js', 'sass:compile', 'concat:build_css', 'copy:build_app_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile', 'htmlmin:index']);
   grunt.registerTask('test', ['development', 'karmaconfig', 'karma:continuous']);
   grunt.registerTask('e2e', ['development', 'express', 'run:protractor']);
 
-  function filterForJS( files ) {
-    return files.filter(function( file ) {
+  function filterForJS(files) {
+    return files.filter(function (file) {
       return file.match(/\.js$/);
     });
   }
 
-  function filterForCSS( files ) {
-    return files.filter(function( file ) {
+  function filterForCSS(files) {
+    return files.filter(function (file) {
       return file.match(/\.css$/);
     });
   }
 
-  grunt.registerMultiTask('index', 'Generate index.html', function() {
+  grunt.registerMultiTask('index', 'Generate index.html', function () {
     var dirRE = new RegExp('^(' + grunt.config('build_dir') + '|' + grunt.config('compile_dir') + ')\/', 'g');
 
-    var jsFiles = filterForJS(this.filesSrc).map(function( file ) {
+    var jsFiles = filterForJS(this.filesSrc).map(function (file) {
       return file.replace(dirRE, '');
     });
 
-    var cssFiles = filterForCSS(this.filesSrc).map(function( file ) {
+    var cssFiles = filterForCSS(this.filesSrc).map(function (file) {
       return file.replace(dirRE, '');
     });
 
     grunt.file.copy('src/app.html', this.data.dir + '/index.html', {
-      process: function( contents, path ) {
+      process: function (contents) {
         return grunt.template.process(contents, {
           data: {
             scripts: jsFiles,
@@ -317,11 +330,11 @@ module.exports = function( grunt ) {
     });
   });
 
-  grunt.registerMultiTask('karmaconfig', 'Genrate karma config', function() {
+  grunt.registerMultiTask('karmaconfig', 'Genrate karma config', function () {
     var scripts = filterForJS(this.filesSrc);
 
     grunt.file.copy('karma.conf', grunt.config('build_dir') + '/karma.js', {
-      process: function( contents, path ) {
+      process: function (contents) {
         return grunt.template.process(contents, {
           data: {
             scripts: scripts
@@ -332,4 +345,3 @@ module.exports = function( grunt ) {
   });
 
 };
-/* eslint-enable */
