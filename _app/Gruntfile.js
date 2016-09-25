@@ -263,7 +263,7 @@ module.exports = function (grunt) {
       },
 
       sass: {
-        files: ['src/**/*.scss'],
+        files: ['scss/**/*.scss'],
         tasks: ['sass:build'],
         options: {
           spawn: false,
@@ -288,7 +288,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['development', 'express', 'watch']);
   grunt.registerTask('development', ['clean:all', 'html2js', 'sass:build', 'concat:build_css', 'copy:build_app_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build']);
   grunt.registerTask('livereload', ['development', 'express', 'watch']);
-  grunt.registerTask('release', ['clean:all', 'html2js', 'sass:compile', 'concat:build_css', 'copy:build_app_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile', 'htmlmin:index']);
+  grunt.registerTask('production', ['clean:all', 'html2js', 'sass:compile', 'concat:build_css', 'copy:build_app_assets', 'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'copy:compile_assets', 'ngAnnotate', 'concat:compile_js', 'uglify', 'index:compile', 'htmlmin:index']);
   grunt.registerTask('test', ['development', 'karmaconfig', 'karma:continuous']);
   grunt.registerTask('e2e', ['development', 'express', 'run:protractor']);
 

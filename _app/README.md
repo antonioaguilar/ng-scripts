@@ -13,4 +13,4 @@
 * `grunt eslint`
 * `grunt test`
 * `grunt e2e`
-* `grunt release`
+* `grunt production`
