@@ -1,4 +1,6 @@
 .DS_Store
 .idea/
-npm-debug.log
+*.log
+.editorconfig
+.eslintrc
 node_modules/
