@@ -2,6 +2,7 @@
 .idea/
 *.log
 public/
+production/
 release/
 node_modules/
 reports/

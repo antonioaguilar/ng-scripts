@@ -19,13 +19,13 @@ module.exports = function (grunt) {
 
   var buildConfig = {
     build_dir: 'public',
-    compile_dir: 'release',
+    compile_dir: 'production',
     app_files: {
-      js: ['src/**/*.js', '!src/**/*.spec.js', '!src/**/*.e2e.js'],
-      jsunit: ['src/**/*.spec.js'],
-      e2e: ['src/**/*.e2e.js'],
-      atpl: ['src/**/*.tpl.html'],
-      html: ['src/app.html'],
+      js: ['app/**/*.js', '!app/**/*.spec.js', '!app/**/*.e2e.js'],
+      jsunit: ['app/**/*.spec.js'],
+      e2e: ['app/**/*.e2e.js'],
+      atpl: ['app/**/*.tpl.html'],
+      html: ['app/app.html'],
       sass: ['scss/main.scss']
     },
     vendor_files: require('./bundle.js')
@@ -95,7 +95,7 @@ module.exports = function (grunt) {
         src: [
           '(function ( window, angular, undefined ) {',
           '<%= vendor_files.js %>',
-          '<%= build_dir %>/src/**/*.js',
+          '<%= build_dir %>/app/**/*.js',
           '<%= html2js.app.dest %>',
           '})( window, window.angular );'
         ],
@@ -209,7 +209,7 @@ module.exports = function (grunt) {
         dir: '<%= build_dir %>',
         src: [
           '<%= vendor_files.js %>',
-          '<%= build_dir %>/src/**/*.js',
+          '<%= build_dir %>/app/**/*.js',
           '<%= html2js.app.dest %>',
           '<%= build_dir %>/assets/<%= pkg.name %>.css'
         ]
@@ -239,7 +239,7 @@ module.exports = function (grunt) {
         configFile: '.eslintrc',
         format: 'stylish'
       },
-      target: ['src/**/*.js', '!src/**/*.spec.js', '!src/**/*.e2e.js']
+      target: ['app/**/*.js', '!app/**/*.spec.js', '!app/**/*.e2e.js']
     },
 
     watch: {
@@ -256,6 +256,15 @@ module.exports = function (grunt) {
       tpls: {
         files: ['<%= app_files.atpl %>'],
         tasks: ['html2js'],
+        options: {
+          spawn: false,
+          livereload: true
+        }
+      },
+
+      html: {
+        files: ['<%= app_files.html %>'],
+        tasks: ['index:build'],
         options: {
           spawn: false,
           livereload: true
@@ -315,7 +324,7 @@ module.exports = function (grunt) {
       return file.replace(dirRE, '');
     });
 
-    grunt.file.copy('src/app.html', this.data.dir + '/index.html', {
+    grunt.file.copy('app/app.html', this.data.dir + '/index.html', {
       process: function (contents) {
         return grunt.template.process(contents, {
           data: {
@@ -330,7 +339,7 @@ module.exports = function (grunt) {
     });
   });
 
-  grunt.registerMultiTask('karmaconfig', 'Genrate karma config', function () {
+  grunt.registerMultiTask('karmaconfig', 'Generate karma config', function () {
     var scripts = filterForJS(this.filesSrc);
 
     grunt.file.copy('karma.conf', grunt.config('build_dir') + '/karma.js', {

@@ -1,6 +1,6 @@
 {
   "name": "ng-scripts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Antonio Aguilar",
   "description": "Automatically generate AngularJS components",
   "license": "MIT",
@@ -8,7 +8,7 @@
   "private": true,
   "preferGlobal": true,
   "bin": {
-    "ng": "index.js"
+    "ng": "ng.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,10 +23,10 @@
     "fs-extra": "^0.30.0",
     "globule": "^1.0.0",
     "kebab-case": "^1.0.0",
-    "lodash": "^4.15.0",
+    "lodash": "^4.16.2",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
-    "eslint": "^3.4.0"
+    "eslint": "^3.6.1"
   }
 }
