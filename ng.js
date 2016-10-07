@@ -14,8 +14,8 @@ program.option('-d, --directive', 'create directive');
 program.option('-C, --component', 'create component');
 program.parse(args);
 
-if ( program.app && !cli.checkArguments(args) ) {
-  cli.createApp(flag.app);
+if ( program.new && !cli.checkArguments(args) ) {
+  cli.createApp(flag.new);
 }
 else if ( cli.checkConfiguration() && !cli.checkArguments(args) ) {
   if ( program.controller ) cli.createController(flag.controller);
