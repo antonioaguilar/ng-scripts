@@ -19,26 +19,26 @@ var app = angular.module('app', [
   'app.providers',
   'app.services',
   'app.directives',
-  'app.components',
   'app.controllers',
   'app.routes'
 ]);
 
-app.config(function( $urlRouterProvider, $logProvider, $envProvider, $compileProvider ) {
-  $urlRouterProvider.otherwise('/app');
+app.config(function( $urlRouterProvider, $logProvider, $envProvider, $compileProvider, $config ) {
+
+  $urlRouterProvider.otherwise($config.default_route);
 
   $envProvider.config({
     domains: {
-      development: ['localhost'],
-      production: ['localhost.com']
+      development: [$config.development.hostname],
+      production: [$config.production.hostname]
     },
     vars: {
-      development: { apiUrl: 'localhost/api' },
-      production: { apiUrl: 'localhost.com/api' }
+      development: { apiUrl: $config.development.apiUrl },
+      production: { apiUrl: $config.production.apiUrl }
     }
   });
 
-  if( $envProvider.mode('production') ) {
+  if( !$config.debug ) {
     $logProvider.debugEnabled(false);
     $compileProvider.debugInfoEnabled(false);
   }
@@ -46,6 +46,7 @@ app.config(function( $urlRouterProvider, $logProvider, $envProvider, $compilePro
 });
 
 app.run(function( $rootScope, $log, $env, $location ) {
+
   $rootScope.apiUrl = $location.protocol() + '://' + $env.key('apiUrl');
 
   $rootScope.$event.addWireTap(function( data, event ) {

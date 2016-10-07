@@ -6,7 +6,8 @@ var toKebabCase = require('kebab-case');
 
 var ngrc, notice;
 var file, data, compiled;
-var ext = ['.js', '.spec.js', '.tpl.html', '.scss'];
+var ext = ['.js', '.tpl.html', '.scss']; // '.spec.js'
+var baseDir = 'app/';
 
 module.exports = {
 
@@ -16,7 +17,7 @@ module.exports = {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
       compiled = _.template(file);
       data = compiled({ notice: notice, name: component });
-      fs.writeFileSync('src/controllers' + '/' + component + ext[idx], data, 'utf8');
+      fs.writeFileSync(baseDir + 'controllers' + '/' + component + ext[idx], data, 'utf8');
     });
   },
 
@@ -26,19 +27,19 @@ module.exports = {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
       compiled = _.template(file);
       data = compiled({ notice: notice, name: component });
-      fs.writeFileSync('src/services' + '/' + component + ext[idx], data, 'utf8');
+      fs.writeFileSync(baseDir + 'services' + '/' + component + ext[idx], data, 'utf8');
     });
   },
 
   createDirective: function (component) {
     var templates = glob.find(['_templates/directive.*'], { srcBase: __dirname });
     try {
-      fs.mkdirsSync('src/directives' + '/' + toKebabCase(component));
+      fs.mkdirsSync(baseDir + 'directives' + '/' + toKebabCase(component));
       _.forEach(templates, function (template, idx) {
         file = fs.readFileSync(__dirname + '/' + template, 'utf8');
         compiled = _.template(file);
         data = compiled({ notice: notice, name: component, style: toKebabCase(component) });
-        fs.writeFileSync('src/directives' + '/' + toKebabCase(component) + '/' + toKebabCase(component) + ext[idx], data, 'utf8');
+        fs.writeFileSync(baseDir + 'directives' + '/' + toKebabCase(component) + '/' + toKebabCase(component) + ext[idx], data, 'utf8');
       });
     }
     catch ( e ) {
@@ -50,12 +51,12 @@ module.exports = {
   createComponent: function (component) {
     var templates = glob.find(['_templates/component.*'], { srcBase: __dirname });
     try {
-      fs.mkdirsSync('src/components' + '/' + toKebabCase(component));
+      fs.mkdirsSync(baseDir + 'components' + '/' + toKebabCase(component));
       _.forEach(templates, function (template, idx) {
         file = fs.readFileSync(__dirname + '/' + template, 'utf8');
         compiled = _.template(file);
         data = compiled({ notice: notice, name: component, style: toKebabCase(component) });
-        fs.writeFileSync('src/components' + '/' + toKebabCase(component) + '/' + toKebabCase(component) + ext[idx], data, 'utf8');
+        fs.writeFileSync(baseDir + 'components' + '/' + toKebabCase(component) + '/' + toKebabCase(component) + ext[idx], data, 'utf8');
       });
     }
     catch ( e ) {

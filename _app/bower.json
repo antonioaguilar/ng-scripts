@@ -8,6 +8,5 @@
     "angular-mocks": "~1.5.8",
     "angular-ui-router": "~0.3.1",
     "angular-bus": "~0.0.6"
-  },
-  "devDependencies": {}
+  }
 }
