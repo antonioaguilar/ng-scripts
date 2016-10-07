@@ -1,6 +1,6 @@
 {
   "name": "ng-scripts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Antonio Aguilar",
   "description": "Automatically generate AngularJS components",
   "license": "MIT",
