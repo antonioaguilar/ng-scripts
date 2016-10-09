@@ -6,7 +6,7 @@ var toKebabCase = require('kebab-case');
 
 var ngrc, notice;
 var file, data, compiled;
-var ext = ['.js', '.tpl.html', '.scss']; // '.spec.js'
+var ext = ['.js', '.tpl.html', '.scss'];
 var baseDir = 'app/';
 
 module.exports = {
