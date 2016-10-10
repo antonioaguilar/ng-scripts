@@ -1,1 +1,1 @@
-# ng-scripts - Automatically generate AngularJS components
+# ng-scripts - Generate AngularJS code
