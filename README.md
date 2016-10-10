@@ -1,13 +1,13 @@
 # ng-scripts - Create AngularJS projects quickly
 
 
-### Install
+## Install
 
 ```bash
 npm install -g ng-scripts
 ```
 
-### Usage
+## Usage
 
 ```bash
 ng --help
@@ -24,6 +24,8 @@ ng --help
     -d, --directive   create directive
     -C, --component   create component
 ```
+
+## Creating AngularJS compomnents
 
 ### Create new app
 
@@ -120,7 +122,7 @@ ng --directive sideMenu
 ng --component homeContainer
 ```
 
-### Typical Example
+## Example Project
 
 ```bash
 .
@@ -164,4 +166,6 @@ ng --component homeContainer
     └── main.scss
 ```
 
-Copyright [Antonio Aguilar](http://www.antonio-aguilar.com), 2016. 
+## License
+
+[MIT](http://opensource.org/licenses/MIT) © [Antonio Aguilar](http://www.antonio-aguilar.com), 2016. 
