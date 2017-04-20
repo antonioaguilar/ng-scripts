@@ -21,21 +21,21 @@ _providers.provider('$env', function() {
 
   this.check = function() {
     var location = window.location.href, self = this;
-    angular.forEach(this.data.domains, function( v, k ) {
-      angular.forEach(v, function( v ) {
-        if( location.match(new RegExp('^http(s)?:\/\/' + v)) ) {
+    angular.forEach(this.data.domains, function(v, k) {
+      angular.forEach(v, function(v) {
+        if(location.match(new RegExp('^http(s)?:\/\/' + v))) {
           self.env = k;
         }
       });
     });
   };
 
-  this.config = function( config ) {
+  this.config = function(config) {
     this.data = config;
     this.check();
   };
 
-  this.set = function( env ) {
+  this.set = function(env) {
     this.env = env;
   };
 
@@ -43,11 +43,11 @@ _providers.provider('$env', function() {
     return this.env;
   };
 
-  this.key = function( key ) {
+  this.key = function(key) {
     return this.data.vars[this.get()][key];
   };
 
-  this.mode = function( env ) {
+  this.mode = function(env) {
     return (env === this.env);
   };
 

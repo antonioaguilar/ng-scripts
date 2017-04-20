@@ -13,27 +13,27 @@
  * copies or substantial portions of the Software.
  */
 
-function loadAppConfiguration( options ) {
+function loadAppConfiguration(options) {
   var $injector = angular.injector(['ng']);
   var $http = $injector.get('$http');
 
-  function validateJSON( data ) {
+  function validateJSON(data) {
     try {
       return JSON.parse(data);
     }
-    catch( e ) {
+    catch(e) {
       console.error('JSON syntax error in ' + options.configUrl);
       return false;
     }
   }
 
-  function onSuccess( response ) {
+  function onSuccess(response) {
     var config = response.data ? response.data : {};
     app.constant('$config', config);
     angular.element('#loading').hide();
   }
 
-  function onFailure( response ) {
+  function onFailure(response) {
     angular.element('#loading').show();
     throw new Error(response);
   }

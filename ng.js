@@ -14,15 +14,15 @@ program.option('-d, --directive', 'create directive');
 program.option('-C, --component', 'create component');
 program.parse(args);
 
-if( program.new && !cli.checkArguments(args) ) {
+if(program.new && !cli.checkArguments(args)) {
   cli.createApp(flag.new);
   return 0;
 }
-else if( cli.checkConfiguration() && !cli.checkArguments(args) ) {
-  if( program.controller ) cli.createController(flag.controller);
-  if( program.service ) cli.createService(flag.service);
-  if( program.directive ) cli.createDirective(flag.directive);
-  if( program.component ) cli.createComponent(flag.component);
+else if(cli.checkConfiguration() && !cli.checkArguments(args)) {
+  if(program.controller) cli.createController(flag.controller);
+  if(program.service) cli.createService(flag.service);
+  if(program.directive) cli.createDirective(flag.directive);
+  if(program.component) cli.createComponent(flag.component);
   return 0;
 }
 else {

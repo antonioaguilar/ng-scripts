@@ -23,7 +23,7 @@ var app = angular.module('app', [
   'app.routes'
 ]);
 
-app.config(function( $urlRouterProvider, $logProvider, $envProvider, $compileProvider, $config ) {
+app.config(function($urlRouterProvider, $logProvider, $envProvider, $compileProvider, $config) {
 
   $urlRouterProvider.otherwise($config.default_route);
 
@@ -38,18 +38,18 @@ app.config(function( $urlRouterProvider, $logProvider, $envProvider, $compilePro
     }
   });
 
-  if( !$config.debug ) {
+  if(!$config.debug) {
     $logProvider.debugEnabled(false);
     $compileProvider.debugInfoEnabled(false);
   }
 
 });
 
-app.run(function( $rootScope, $log, $env, $location ) {
+app.run(function($rootScope, $log, $env, $location) {
 
   $rootScope.apiUrl = $location.protocol() + '://' + $env.key('apiUrl');
 
-  $rootScope.$event.addWireTap(function( data, event ) {
+  $rootScope.$event.addWireTap(function(data, event) {
     $log.debug(event);
   });
 

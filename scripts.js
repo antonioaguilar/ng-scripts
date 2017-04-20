@@ -12,9 +12,9 @@ var baseDir = 'app/';
 
 module.exports = {
 
-  createController: function( component ) {
+  createController: function(component) {
     var templates = glob.find(['_templates/controller.*'], { srcBase: __dirname });
-    _.forEach(templates, function( template, idx ) {
+    _.forEach(templates, function(template, idx) {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
       compiled = _.template(file);
       data = compiled({ notice: notice, name: component });
@@ -23,9 +23,9 @@ module.exports = {
     });
   },
 
-  createService: function( component ) {
+  createService: function(component) {
     var templates = glob.find(['_templates/service.*'], { srcBase: __dirname });
-    _.forEach(templates, function( template, idx ) {
+    _.forEach(templates, function(template, idx) {
       file = fs.readFileSync(__dirname + '/' + template, 'utf8');
       compiled = _.template(file);
       data = compiled({ notice: notice, name: component });
@@ -34,11 +34,11 @@ module.exports = {
     });
   },
 
-  createDirective: function( component ) {
+  createDirective: function(component) {
     var templates = glob.find(['_templates/directive.*'], { srcBase: __dirname });
     try {
       fs.mkdirsSync(baseDir + 'directives' + '/' + toKebabCase(component));
-      _.forEach(templates, function( template, idx ) {
+      _.forEach(templates, function(template, idx) {
         file = fs.readFileSync(__dirname + '/' + template, 'utf8');
         compiled = _.template(file);
         data = compiled({ notice: notice, name: component, style: toKebabCase(component) });
@@ -46,17 +46,17 @@ module.exports = {
       });
       console.log('ng: directives created'.green);
     }
-    catch( e ) {
+    catch(e) {
       console.error('ERROR: could not create sub-folder for directive'.underline.red);
       return false;
     }
   },
 
-  createComponent: function( component ) {
+  createComponent: function(component) {
     var templates = glob.find(['_templates/component.*'], { srcBase: __dirname });
     try {
       fs.mkdirsSync(baseDir + 'components' + '/' + toKebabCase(component));
-      _.forEach(templates, function( template, idx ) {
+      _.forEach(templates, function(template, idx) {
         file = fs.readFileSync(__dirname + '/' + template, 'utf8');
         compiled = _.template(file);
         data = compiled({ notice: notice, name: component, style: toKebabCase(component) });
@@ -64,20 +64,20 @@ module.exports = {
       });
       console.log('ng: component created'.green);
     }
-    catch( e ) {
+    catch(e) {
       console.error('ERROR: could not create sub-folder for component'.underline.red);
       return false;
     }
   },
 
-  createApp: function( app ) {
+  createApp: function(app) {
     try {
       fs.mkdirsSync('./' + app);
       fs.copySync(__dirname + '/_app', './' + app);
       console.log('ng: new app created'.green);
       return true;
     }
-    catch( e ) {
+    catch(e) {
       console.error('ERROR: could not create app'.underline.red);
       return false;
     }
@@ -91,17 +91,17 @@ module.exports = {
       notice = fs.readFileSync(ngrc.path + '/' + ngrc.notice, 'utf8');
       return true;
     }
-    catch( err ) {
+    catch(err) {
       console.error('ERROR: could not find configuration files'.underline.red);
       return false;
     }
   },
 
-  checkArguments: function( args ) {
+  checkArguments: function(args) {
     return _.size(args) < 4;
   },
 
-  getArguments: function( args ) {
+  getArguments: function(args) {
     return parseArgs(args.slice(2));
   }
 

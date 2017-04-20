@@ -25,7 +25,7 @@ ng --help
     -C, --component   create component
 ```
 
-## Creating AngularJS compomnents
+## Getting Started
 
 ### Create new app
 
@@ -78,6 +78,14 @@ npm install
 
 ```bash
 bower install
+```
+
+To run the project using Brunch:
+
+```bash
+brunch watch --server
+15:24:44 - info: application started on http://localhost:9000/
+15:24:45 - info: compiled 20 files into 4 files, copied 2 in 1.5 sec
 ```
 
 Third-party libraries are installed in the ```vendor``` folder and included in ```bundle.js```
@@ -168,4 +176,4 @@ ng --component homeContainer
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Antonio Aguilar](http://www.antonio-aguilar.com), 2016. 
+[MIT](http://opensource.org/licenses/MIT) © [Antonio Aguilar](https://www.antonio-aguilar.com/about/), 2017. 

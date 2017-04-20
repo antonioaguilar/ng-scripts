@@ -15,7 +15,7 @@
 
 var routes = angular.module('app.routes', ['app.global']);
 
-routes.config(function( $stateProvider ) {
+routes.config(function($stateProvider) {
 
   $stateProvider.state('app', {
     url: '/app',
