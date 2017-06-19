@@ -59,8 +59,8 @@ module.exports = {
   },
 
   server: {
-    //run: true,
-    port: 9000
+    hostname: '0.0.0.0',
+    port: 8080
   }
 
 };
